@@ -1080,6 +1080,7 @@ class Trainer(
         if hasattr(model, "hparams"):
             parsing.clean_namespace(model.hparams)
 
+        self._callback_connector._attach_model_callbacks(model)
         verify_loop_configurations(self, model)
 
         # attach model log function to callback
@@ -1090,7 +1091,6 @@ class Trainer(
 
         # hook
         self._data_connector.prepare_data()
-        self._callback_connector._attach_model_callbacks()
 
         # ----------------------------
         # SET UP TRAINING
